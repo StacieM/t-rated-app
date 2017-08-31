@@ -1,0 +1,82 @@
+body {
+    background-color: #000;
+  }
+
+  #landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+  }
+
+  #landing-header h1 {
+    color: #fff;
+  }
+
+  .slideshow { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .slideshow li { 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 50s linear infinite; 
+  }
+
+  .slideshow li:nth-child(1) { 
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Teacher-writing-on-blackboard564.jpg/1024px-Teacher-writing-on-blackboard564.jpg) 
+  }
+  .slideshow li:nth-child(2) { 
+    background-image: url(https://wwwassets.rand.org/content/rand/education/projects/measuring-teacher-effectiveness/value-added-modeling/jcr:content/par/teaser.aspectfit.0x1200.jpg/1495314857081.jpg);
+    animation-delay: 10s; 
+  }
+  .slideshow li:nth-child(3) { 
+    background-image: url(https://www.sandiegounified.org/sites/default/files_link/district/files/dept/teacher_preparation_and_support_/Pictures/teacher2.jpg);
+    animation-delay: 20s; 
+  }
+  .slideshow li:nth-child(4) { 
+    background-image: url(http://ctl.yale.edu/sites/default/files/styles/card_image/public/inner-landing-page-card-images/teaching_science.jpg?itok=h6svMqrP);
+    animation-delay: 30s; 
+  }
+  .slideshow li:nth-child(5) { 
+    background-image: url(https://s-media-cache-ak0.pinimg.com/originals/51/81/08/51810879ec40cf320e5b891e029e421d.jpg);
+    animation-delay: 40s; 
+  }
+
+  @keyframes imageAnimation { 
+    0% { 
+      opacity: 0; 
+      animation-timing-function: ease-in;
+    }
+    10% {
+      opacity: 1;
+      animation-timing-function: ease-out;
+    }
+    20% {
+      opacity: 1
+    }
+    30% {
+      opacity: 0
+    }
+  }
+
+  /* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
