@@ -1,3 +1,27 @@
+.jumbotron {
+    text-align: center;
+    box-sizing: border-box;
+    /* height: 150px; */
+    background-color: black;
+  }
+
+  body {
+    font-family: "Verdana", sans-serif;
+    color: white;
+    background-image: url('chalkboard.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center top; 
+    background-size: cover;
+    height: 100%;
+  }
+
+  h1, p {
+    text-align: center;
+}
+
+
+   /* steel's css --- */
 .thumbnail img {
     width: 100%;
 }
