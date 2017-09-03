@@ -1,62 +1,58 @@
-
 var mongoose = require("mongoose");
 var Teacher = require("./models/teacher");
-var Comment = require("./models/comment");
+var Comment   = require("./models/comment");
 
 var data = [
     {
-        name: "Joe Teacher",
+        name: "Joe Teacher", 
         image: "http://hotemoji.com/images/emoji/0/1nhll4o1aczf50.png",
-        description: "yadda yadda yadda"
+        description: "Best Teacher Ever!"
     },
     {
-        name: "Jim Teacher",
+        name: "Jim Teacher", 
         image: "http://hotemoji.com/images/emoji/0/1nhll4o1aczf50.png",
-        description: "yadda yadda yadda"
+        description: "Great Instructor!"
     },
     {
-        name: "Jed Teacher",
+        name: "Jack Teacher", 
         image: "http://hotemoji.com/images/emoji/0/1nhll4o1aczf50.png",
-        description: "yadda yadda yadda"
+        description: "Lacked Enthusiasm for the Subject"
     }
 ]
 
 function seedDB(){
-    // remove all teachers
-    Teacher.remove({}, function(err){
+   //Remove all teachers
+   Teacher.remove({}, function(err){
         if(err){
             console.log(err);
         }
-        console.log("removed teacher");
-        // add some teachers
+        console.log("removed teachers!");
+         //add a few teachers
         data.forEach(function(seed){
             Teacher.create(seed, function(err, teacher){
                 if(err){
-                console.log(err)
+                    console.log(err)
                 } else {
                     console.log("added a teacher");
-                    // add a comment
+                    //create a comment
                     Comment.create(
                         {
-                            text: "this teacher is great",
-                            author: "Homer"
-                        },  function(err, comment){
+                            text: "this teacher and class are very interesting",
+                            author: "Katie"
+                        }, function(err, comment){
                             if(err){
                                 console.log(err);
-                            }  else {
-                            teacher.comments.push(comment);
-                            teacher.save();
-                            console.log("created new comment")
+                            } else {
+                                teacher.comments.push(comment);
+                                teacher.save();
+                                console.log("Created new comment");
                             }
                         });
-                    }
-                
-                
+                }
+            });
         });
-    });
-    });
+    }); 
+    //add a few comments
 }
-    
-
 
 module.exports = seedDB;

@@ -5,31 +5,28 @@ var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
 //Comments New
-router.get("/new",middleware.isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
     // find teacher by id
     console.log(req.params.id);
     Teacher.findById(req.params.id, function(err, teacher){
         if(err){
             console.log(err);
         } else {
-            res.render("comments/new", {
-                teacher: teacher
-            });
+             res.render("comments/new", {teacher: teacher});
         }
     })
 });
 
 //Comments Create
-router.post("/",middleware.isLoggedIn,function(req, res){
+router.post("/",middleware.isLoggedIn, middleware.isAdmin, function(req, res){
    //lookup teacher using ID
    Teacher.findById(req.params.id, function(err, teacher){
        if(err){
-           req.flash('error', JSON.stringify(err));
+           console.log(err);
            res.redirect("/teachers");
        } else {
         Comment.create(req.body.comment, function(err, comment){
            if(err){
-               req.flash("error", "Something went wrong");
                console.log(err);
            } else {
                //add username and id to comment
@@ -40,7 +37,7 @@ router.post("/",middleware.isLoggedIn,function(req, res){
                teacher.comments.push(comment);
                teacher.save();
                console.log(comment);
-               req.flash("success", "You've successfully added a comment");
+               req.flash('success', 'Created a comment!');
                res.redirect('/teachers/' + teacher._id);
            }
         });
@@ -48,42 +45,46 @@ router.post("/",middleware.isLoggedIn,function(req, res){
    });
 });
 
-// COMMENT EDIT ROUTE
-router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
-   Comment.findById(req.params.comment_id, function(err, foundComment){
-      if(err){
-          res.redirect("back");
-      } else {
-        res.render("comments/edit", {
-            teacher_id: req.params.id, 
-            comment: foundComment
-        });
-      }
-   });
+router.get("/:commentId/edit", middleware.isLoggedIn, function(req, res){
+    // findteacher by id
+    Comment.findById(req.params.commentId, function(err, comment){
+        if(err){
+            console.log(err);
+        } else {
+             res.render("comments/edit", {teacher_id: req.params.id, comment: comment});
+        }
+    })
 });
 
-// COMMENT UPDATE
-router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
-   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
-      if(err){
-          res.redirect("back");
-      } else {
-        req.flash("success", "Your comment has been updated");
-          res.redirect("/teachers/" + req.params.id );
-      }
-   });
-});
-
-// COMMENT DESTROY ROUTE
-router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
-    //findByIdAndRemove
-    Comment.findByIdAndRemove(req.params.comment_id, function(err){
+router.put("/:commentId", middleware.isAdmin, function(req, res){
+   Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, function(err, comment){
        if(err){
-           res.redirect("back");
+          console.log(err);
+           res.render("edit");
        } else {
-           req.flash("success", "Your comment has been deleted");
            res.redirect("/teachers/" + req.params.id);
        }
+   }); 
+});
+
+router.delete("/:commentId", middleware.checkUserComment, middleware.isAdmin, function(req, res){
+    Comment.findByIdAndRemove(req.params.commentId, function(err, comment){
+        if(err){
+            console.log(err);
+        } else {
+            Teacher.findByIdAndUpdate(req.params.id, {
+              $pull: {
+                comments: comment.id
+              }
+            }, function(err) {
+              if(err){ 
+                console.log(err)
+              } else {
+                req.flash('error', 'Comment deleted!');
+                res.redirect("/teachers/" + req.params.id);
+              }
+            });
+        }
     });
 });
 

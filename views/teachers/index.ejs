@@ -1,34 +1,36 @@
-<% include ../partials/header %>
+<% include ../partials/header %> 
 
-<div class="container">
-    <header class="jumbotron">
-        <div class="container">
-            <h1>Welcome to T-Rated!</h1>
-            <p>View and Rate Teachers</p>
-            <p><a class="btn btn-primary btn-lg" href="/teachers/new">Add a Teacher</a></p>
-        </div>
-    </header>
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>The Most Rated Teachers!</h3>
-        </div>
-    </div>
-    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+     <header class="jumbotron">
+         <div class="container">
+             <h1><span class="glyphicon glyphicon-education"></span> Welcome To T-Rated!</h1>
+             <p>View and Rate Teachers</p>
+             <p>
+                <a class="btn btn-primary btn-lg" href="/teachers/new">Add a Teacher</a>
+             </p>
+              <p>
+              <form action="/teachers" method="GET" class="form-inline" id="teacher-search">
+                <div class="form-group">
+                  <input type="text" name="search" placeholder="Teacher search" class="form-control">
+                </div>
+              </form>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center flex-wrap" id="teacher-grid">
         <% teachers.forEach(function(teacher){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                    <img src="<%= teacher.image %>">
-                    <div class="caption">
-                        <h4><%= teacher.name %></h4>
-                    </div>
-                    <p>
-                        <a href="/teachers/<%= teacher._id %>" class="btn btn-primary">More Info</a>
-                    </p>
+                   <img src="<%= teacher.image %>">
+                   <div class="caption">
+                       <h4><%= teacher.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/teachers/<%= teacher._id %>" class="btn btn-primary">More Info</a>
+                   </p>
                 </div>
             </div>
-        <% }); %> 
+        <% }); %>
     </div>
-</div>
-            
 
 <% include ../partials/footer %>

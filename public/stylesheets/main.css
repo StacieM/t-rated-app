@@ -1,27 +1,27 @@
-.jumbotron {
-    text-align: center;
-    box-sizing: border-box;
-    /* height: 150px; */
-    background-color: black;
-  }
-
-  body {
-    font-family: "Verdana", sans-serif;
-    color: white;
-    background-image: url('chalkboard.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center top; 
-    background-size: cover;
-    height: 100%;
-  }
-
-  h1, p {
-    text-align: center;
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
 }
 
+.container .text-muted {
+  margin: 20px 0;
+}
 
-   /* steel's css --- */
+/* Thumbnail styles */
 .thumbnail img {
     width: 100%;
 }
@@ -34,6 +34,23 @@
     padding: 9px;
 }
 
-#delete-form {
-    display: inline;
+/* Google Map styles */
+#map {
+	height: 400px;
+	width: 100%;
+}
+
+/* teacher show page delete button */
+.delete-form {
+	display: inline-block;
+}
+
+/* Flexbox grid fix */
+.flex-wrap {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+jumbotron {
+  background-color: #f9f9f9);
 }
